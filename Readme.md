@@ -1,1 +1,1 @@
-Here I make a C++ implementation of Langton's Ant.
+A C++ implementation of Langton's Ant.
