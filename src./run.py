@@ -1,0 +1,3 @@
+import GOL
+
+GOL.main()
