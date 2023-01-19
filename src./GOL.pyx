@@ -11,7 +11,7 @@ def random_grid(N):
 # Function to calculate the next iteration.    
 def run(int frame_num, img, int[:, ::1] grid, int N):
     cdef int i, j, total
-    tmp = np.zeros(shape = (N, N))
+    tmp = np.zeros(shape = (N, N), dtype = np.intc)
     cdef int[:, :] tmp_view = tmp
     for i in range(N):
         for j in range(N):
@@ -21,14 +21,14 @@ def run(int frame_num, img, int[:, ::1] grid, int N):
                                 + grid[(i-1)%N][(j-1)%N] + grid[(i+1)%N][(j-1)%N])
             if grid[i][j] == 1:
                 if total < 2 or total > 3:
-                    tmp[i][j] = 0
+                    tmp_view[i][j] = 0
                 elif total == 2 or total == 3:
-                    tmp[i][j] = 1
+                    tmp_view[i][j] = 1
             else:
                 if total == 3:
-                    tmp[i][j] = 1
+                    tmp_view[i][j] = 1
     img.set_data(tmp)
-    grid[:] = tmp_view[:]
+    grid[:, :] = tmp_view[:,:]
     return img
 # Animation function.
 def main():
